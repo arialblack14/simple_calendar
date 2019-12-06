@@ -7,9 +7,6 @@ module SimpleCalendar
     attr_accessor :view_context, :options
 
     def initialize(view_context, opts={})
-      Rails.logger.info "DEBUG:: ------------------------------------"
-      Rails.logger.info "DEBUG:: view_context: #{view_context.inspect}"
-
       @view_context = view_context
       @options = opts
 
@@ -17,9 +14,6 @@ module SimpleCalendar
       @params = @view_context.respond_to?(:params) ? @view_context.params : Hash.new
       @params = @params.to_unsafe_h if @params.respond_to?(:to_unsafe_h)
       @params = @params.with_indifferent_access.except(*PARAM_KEY_BLACKLIST)
-      Rails.logger.info "DEBUG:: opts: #{@options}"
-      Rails.logger.info "DEBUG:: params: #{@params}" if @params
-      Rails.logger.info "DEBUG:: ------------------------------------"
 
       # Add in any additonal params the user passed in
       @params.merge!(@options.fetch(:params, {}))
